@@ -13,20 +13,20 @@ try { var t = localStorage.getItem("ilrv-theme"); if (t === "light" || t === "da
 <style>
 :root{
   --bg:#0e1a2b; --panel:#15243a; --raised:#1d3150; --line:#2b4466; --text:#e8eef6; --muted:#97abc4;
-  --accent:#f0b548; --accent-ink:#1b1304; --warn:#ffb86b; --focus:#8cc8ff;
+  --accent:#f0b548; --accent-ink:#1b1304; --warn:#ffb86b; --focus:#8cc8ff; --ok:#5fd3a0;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
   --sans:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
 html[data-theme="light"]{
   --bg:#f1f4f8; --panel:#ffffff; --raised:#e6ecf3; --line:#c9d3df; --text:#13233a; --muted:#54667e;
-  --accent:#14365f; --accent-ink:#ffffff; --warn:#9a4a00; --focus:#1b66c9;
+  --accent:#14365f; --accent-ink:#ffffff; --warn:#9a4a00; --focus:#1b66c9; --ok:#16805a;
 }
 *{box-sizing:border-box}
 html{color-scheme:dark}
 html[data-theme="light"]{color-scheme:light}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 var(--sans);-webkit-text-size-adjust:100%}
 .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
-button,input{font:inherit;color:inherit}
+button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 a{color:inherit}
 
@@ -350,6 +350,62 @@ button,a,input,label{-webkit-tap-highlight-color:transparent;touch-action:manipu
   .controls,.filters.open,dialog[open],.sheetbg.on{transition:none;animation:none}
 }
 @media print{.totop,.sheetbg,.sheethead,.viewrow,.agepill{display:none!important}}
+
+/* ---------- v4: pasted lab report ---------- */
+.paste{margin-top:24px;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px 14px 10px}
+.paste .phead{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;margin-bottom:8px}
+.paste .phead label{font:600 18px/1.2 var(--serif)}
+.paste .phint{font-size:13px;color:var(--muted)}
+.paste textarea{display:block;width:100%;min-height:78px;resize:vertical;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+  font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.paste textarea::placeholder{color:var(--muted)}
+.paste textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+.paste .pbar{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:7px;font-size:13.5px;color:var(--muted)}
+.paste .pstat strong{color:var(--text)}
+.paste .pstat .warnx{color:var(--warn)}
+.cmpsec{margin:0 0 26px}
+.cmpsec h2{font:600 21px/1.3 var(--serif);margin:0 0 4px}
+.cmpsec .sub{color:var(--muted);font-size:14px;margin:0 0 12px;max-width:95ch}
+.cmpsec .sub strong{color:var(--text)}
+.cmp td{min-width:150px}
+.cmp td .res{font-weight:700;font-size:17px;white-space:nowrap}
+.cmp td .na{color:var(--muted);font-size:13.5px}
+.cmp tbody th .lab{display:block;font-weight:500}
+.cmp tbody th .mk{font-size:12.5px;font-weight:400;color:var(--muted)}
+.pill{display:inline-block;margin-left:6px;font-size:12px;font-weight:650;line-height:1.5;border-radius:999px;padding:0 8px;white-space:nowrap;border:1px solid currentColor;vertical-align:1px}
+.pill.lo,.pill.hi,.pill.part{color:var(--warn)}
+.pill.ok{color:var(--ok)}
+.pill.part{border-style:dashed}
+tr.abn th{box-shadow:inset 3px 0 0 var(--warn)}
+.srcl{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.srcl i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--c)}
+.srcl.out{color:var(--text)}
+.srcl em{font-style:normal;color:var(--warn);font-weight:600}
+.bar b.pt{top:-3px;bottom:auto;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ok);border:2px solid var(--panel)}
+.bar b.pt.out{background:var(--warn)}
+.cmpnote{font-size:13px;color:var(--muted);margin:8px 2px 0;max-width:95ch}
+.allref{border-top:1px solid var(--line);padding-top:18px}
+.showall{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;margin:0 0 18px;background:var(--panel);border:1px solid var(--line);border-radius:10px;cursor:pointer;font-weight:600;font-size:15px}
+.showall:hover{border-color:var(--accent)}
+.showall::before{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .2s}
+.showall[aria-expanded="true"]::before{transform:rotate(45deg)}
+@media (max-width:720px){
+  .paste{margin-top:14px;padding:10px 12px}
+  .paste .phead label{font-size:16px}
+  .cmp td{--c:var(--line)}
+  .cmp td.r{--c:var(--accent)}
+  .cmp tbody th{display:block}
+  .cmp tbody th::after{display:none}
+  .cmp tbody th .mk{display:inline;font-size:12.5px;font-weight:400;text-decoration:underline dotted}
+  .cmp td .res{white-space:normal}
+  .srcl{white-space:normal}
+  .showall{width:100%;justify-content:center}
+}
+@media print{
+  .paste{display:none!important}
+  .showall{display:none!important}
+  .pill.lo,.pill.hi,.pill.part,.pill.ok{color:#000}
+}
 </style>
 </head>
 <body>
@@ -372,6 +428,13 @@ button,a,input,label{-webkit-tap-highlight-color:transparent;touch-action:manipu
       <div class="rail"></div><div class="marker" id="marker"></div>
       <div class="ticks" id="ticks"></div>
     </div>
+
+    <section class="paste" id="paste" aria-label="Paste a lab report">
+      <div class="phead"><label for="report">Or paste a report from BestCare</label>
+        <span class="phint">The age and results are read from the text. Nothing is saved or sent anywhere.</span></div>
+      <textarea id="report" rows="3" spellcheck="false" autocomplete="off" placeholder="Paste the lymphocyte subset report here, for example:&#10;13 years old …&#10;# CD3+(T-Cells) : 435 cells/mm^3 (2400~6900)"></textarea>
+      <div class="pbar"><span class="pstat" id="pstat" aria-live="polite"></span><button type="button" class="linkbtn" id="rclear" hidden>Clear report</button></div>
+    </section>
   </header>
 </div>
 
@@ -415,6 +478,7 @@ button,a,input,label{-webkit-tap-highlight-color:transparent;touch-action:manipu
   <div class="notes">
     <p>Each column is one source, and limits are shown exactly as that source defines them. A 10th–90th percentile range, an interquartile range and a laboratory reference interval are not interchangeable, so pick the limit and source that fit your laboratory's method.</p>
     <p>The first column, All sources, runs from the lowest lower limit to the highest upper limit among the sources shown; it is a quick overview, not a reference interval. The bar in each cell draws that source's range on a scale shared by the row, with a tick at the median. A marker is tagged "sources differ" when upper limits differ twofold or more, or lower limits threefold or more, leaving interquartile ranges out of that comparison. Group sizes under 20 are flagged.</p>
+    <p>A pasted report is compared twice: with the laboratory's own range where the report gives one, and with each selected published source for the patient's age. Interquartile ranges are left out of that comparison because they hold only the middle half of healthy people. Results the page cannot match to a marker it holds are listed with the laboratory's range alone.</p>
     <p>Counts were published as cells/µL, ×10³/µL or ×10⁹/L and are converted to the unit you choose. Age groups printed as closed ranges, such as 7–8 years, run up to the start of the next group. Preterm infants, cord blood and Saudi or Gulf cohorts are not covered.</p>
     <p>For reference only. The reporting laboratory's own validated intervals take precedence in clinical interpretation.</p>
   </div>
@@ -460,7 +524,7 @@ var seriesByParam = {};
 DATA.series.forEach(function (s) { (seriesByParam[s.p] = seriesByParam[s.p] || {})[s.s] = s; });
 var usedLimits = DATA.limits.filter(function (l) { return studyIds.some(function (s) { return DATA.studies[s].limit === l.id; }); });
 
-var state = { tab: DATA.tabs[0].id, q: "", limits: {}, sources: {}, details: false, age: null, compact: false, si: false };
+var state = { tab: DATA.tabs[0].id, q: "", limits: {}, sources: {}, details: false, age: null, compact: false, si: false, showAll: false };
 usedLimits.forEach(function (l) { state.limits[l.id] = true; });
 studyIds.forEach(function (s) { state.sources[s] = true; });
 function pref(k, v) { try { if (v === undefined) return localStorage.getItem("ilrv-" + k); localStorage.setItem("ilrv-" + k, v); } catch (e) { return null; } }
@@ -547,6 +611,216 @@ function coverage(study, tab) {
   });
   if (lo === Infinity) return null;
   return open ? "from " + span(lo) : span(lo) + " to under " + span(hi);
+}
+
+/* ---------- pasted report (BestCare) ---------- */
+var REPORT = null, reportAgeApplied = null;
+var NUM = "\\d[\\d,]*(?:\\.\\d+)?";
+var RANGE_RE = new RegExp("(" + NUM + ")\\s*(?:~|–|—|-|to)\\s*(" + NUM + ")");
+function num(s) { return parseFloat(String(s).replace(/,/g, "")); }
+/* Age: "13 years old", "8 months", "2 y 3 m", "6-week-old", "Age: 5". The clinical details are searched first. */
+function parseAge(text) {
+  var unitRe = /(\d+(?:\.\d+)?)\s*-?\s*(years?|yrs?|y|months?|mos?|mo|m|weeks?|wks?|w|days?|d)\b(?:[\s-]*old)?/gi;
+  function scan(seg) {
+    unitRe.lastIndex = 0;
+    var m = unitRe.exec(seg), total = 0, end, got = false;
+    while (m) {
+      if (got && m.index - end > 12) break;
+      var v = parseFloat(m[1]), u = m[2].toLowerCase();
+      total += u[0] === "y" ? v * Y : u[0] === "m" ? v * M : u[0] === "w" ? v * 7 : v;
+      got = true; end = m.index + m[0].length;
+      m = unitRe.exec(seg);
+    }
+    return got ? total : null;
+  }
+  var cd = /clinical\s*details?\s*:?([\s\S]*?)(?:◆|\bresults?\b|$)/i.exec(text);
+  if (cd) { var a = scan(cd[1]); if (a !== null) return a; }
+  var ag = /\bage\s*[:=\-]?\s*(\d+(?:\.\d+)?)\s*(years?|yrs?|y|months?|mos?|mo|m|weeks?|wks?|w|days?|d)?\b/i.exec(text);
+  if (ag) return ag[2] ? scan(ag[1] + " " + ag[2]) : parseFloat(ag[1]) * Y;
+  var old = /(\d+(?:\.\d+)?)\s*-?\s*(years?|yrs?|months?|weeks?|days?)[\s-]*old\b/i.exec(text);
+  return old ? scan(old[0]) : null;
+}
+function parseRef(inner) {
+  var t = inner.replace(/^\s*(?:reference|ref\.?|normal)\s*(?:value|range|interval)?s?\s*[:=]?\s*/i, "").trim();
+  var m = RANGE_RE.exec(t);
+  if (m) return { lo: num(m[1]), hi: num(m[2]), txt: t };
+  m = new RegExp("(<=|≤|<)\\s*(" + NUM + ")").exec(t);
+  if (m) return { lo: null, hi: num(m[2]), strict: m[1] === "<", txt: t };
+  m = new RegExp("(>=|≥|>)\\s*(" + NUM + ")").exec(t);
+  if (m) return { lo: num(m[2]), hi: null, strict: m[1] === ">", txt: t };
+  return null;
+}
+/* Which marker of this page a report line measures. pct = a percentage, abs = an absolute count. */
+function mapParam(label, pct, abs) {
+  var k = label.toLowerCase().replace(/\s+/g, "");
+  var pick = function (p, a) { return pct ? p : abs ? a : (p || a); };
+  var ab = /alpha\/?beta|tcr\+?(a\/?b|α\/?β)\b|αβ/.test(k), gd = /gamma\/?delta|tcr\+?(g\/?d|γ\/?δ)\b|γδ/.test(k);
+  var dn = /dnt|doubleneg|cd4-cd8-|cd4–cd8–/.test(k);
+  if (dn && ab) return pick("dnab", null);
+  if (dn) return pick("dn", null);
+  if (/doublepos|cd4\+cd8\+/.test(k)) return pick("dp", null);
+  if (gd) return pick("tgd", null);
+  if (ab) return pick("tab", null);
+  if (/ratio/.test(k)) return "ratio";
+  if (/cd45ra|naive/.test(k)) {
+    if (/cd8/.test(k)) return pick(/cd62l/.test(k) ? "8n" : "8ra", /cd62l/.test(k) ? "8n_a" : "8ra_a");
+    if (/cd4/.test(k)) return pick(/cd62l/.test(k) ? "4n" : "4ra", /cd62l/.test(k) ? "4n_a" : "4ra_a");
+    return pick("tn", "tn_a");
+  }
+  if (/cd45ro|memory/.test(k)) {
+    if (/cd8/.test(k)) return pick(null, "8ro_a");
+    if (/cd4/.test(k)) return pick("4ro", "4ro_a");
+    return pick("tm", "tm_a");
+  }
+  if (/cd16|cd56|\bnk|nkcell/.test(k)) return pick("nkp", "nk");
+  if (/cd19/.test(k)) return pick("cd19p", "cd19");
+  if (/cd20/.test(k)) return pick("cd20p", "cd20");
+  if (/cd4/.test(k) && !/cd8/.test(k)) return pick("cd4p", "cd4");
+  if (/cd8/.test(k) && !/cd4/.test(k)) return pick("cd8p", "cd8");
+  if (/cd3/.test(k)) return pick("cd3p", "cd3");
+  if (/lymph/.test(k)) return pick("lymp", "lym");
+  if (/wbc|whitebloodcell|leu[ck]ocyte/.test(k)) return pick(null, "wbc");
+  return null;
+}
+/* ×10⁹/L and ×10³/µL both equal 1,000 cells/µL. */
+function countFactor(u, value, pid) {
+  var s = u.toLowerCase().replace(/\s+/g, "");
+  if (/10\W{0,2}(9|3)\b|10[⁹³]|k\/(u|µ|μ)l|g\/l/.test(s)) return 1000;
+  if (!s && (pid === "wbc" || pid === "lym") && value < 100) return 1000;
+  return 1;
+}
+function parseLine(line) {
+  var s = line.replace(/^[\s•◆▪●○■□►▶*·\-–]+/, "").trim();
+  if (!s || /^</.test(s) && />$/.test(s)) return null;
+  var ref = null;
+  s = s.replace(/\(([^()]*)\)/g, function (all, inner) {
+    if (ref) return all;
+    var isRef = /reference|normal|\bref\b/i.test(inner) || (/^\s*[<>≤≥]/.test(inner)) || (RANGE_RE.test(inner) && !/cd\d/i.test(inner));
+    if (!isRef) return all;
+    ref = parseRef(inner);
+    return ref ? " " : all;
+  });
+  var label, rest, ci = s.indexOf(":");
+  if (ci > 0 && /\d/.test(s.slice(ci + 1))) { label = s.slice(0, ci); rest = s.slice(ci + 1); }
+  else {
+    var mm = /([<>≤≥]?\s*\d+(?:\.\d+)?)\s*(%|cells)/i.exec(s);
+    if (!mm) return null;
+    label = s.slice(0, mm.index); rest = s.slice(mm.index);
+  }
+  var vm = new RegExp("([<>≤≥])?\\s*(" + NUM + ")").exec(rest);
+  if (!vm || /\d/.test(rest.slice(0, vm.index))) return null;
+  var value = num(vm[2]), unitTxt = rest.slice(vm.index + vm[0].length).replace(/[\s.;,]+$/, "").trim();
+  label = label.replace(/\s+(?:around|about|approximately|approx\.?|is|=)\s*$/i, "").replace(/[\s.:,;-]+$/, "").trim();
+  if (!label) return null;
+  var pct, abs;
+  if (/^%/.test(label)) pct = true;
+  else if (/^#/.test(label)) abs = true;
+  else if (/^%/.test(unitTxt) && !/ratio/i.test(label)) pct = true;
+  else if (/cell|\/\s*(?:u|µ|μ|m)l|mm|10\W{0,2}[39]|10[⁹³]/i.test(unitTxt)) abs = true;
+  else if (/%/.test(label)) pct = true;
+  else if (/absolute|count|#/i.test(label)) abs = true;
+  var pid = mapParam(label, pct, abs);
+  if (!pct && !abs && pid && pid !== "ratio" && paramById[pid]) { pct = paramById[pid].unit === "%"; abs = !pct; }
+  var f = abs ? countFactor(unitTxt, value, pid) : 1;
+  return { label: label, value: value * f, raw: vm[0].trim(), unitTxt: unitTxt, cmp: vm[1] || "", pct: !!pct, abs: !!abs, pid: pid && paramById[pid] ? pid : null,
+    ref: ref ? { lo: ref.lo === null ? null : ref.lo * f, hi: ref.hi === null ? null : ref.hi * f, strict: ref.strict, txt: ref.txt } : null };
+}
+function parseReport(text) {
+  var rows = [];
+  text.split(/\r?\n/).forEach(function (line) {
+    var r = parseLine(line); if (!r) return;
+    if (!r.pid && !r.ref && !r.pct && !r.abs) return; // dates, numbers and other lines that are not results
+    rows.push(r);
+  });
+  /* Absolute lymphocytes, calculated from WBC × lymphocyte %, when the report does not give the count itself. */
+  var w = rows.filter(function (r) { return r.pid === "wbc"; })[0], lp = rows.filter(function (r) { return r.pid === "lymp"; })[0];
+  if (w && lp && !rows.some(function (r) { return r.pid === "lym"; })) {
+    rows.splice(rows.indexOf(lp) + 1, 0, { label: "Lymphocytes, absolute (calculated)", value: Math.round(w.value * lp.value / 100), pid: "lym", abs: true, calc: true, ref: null });
+  }
+  return { age: parseAge(text), rows: rows };
+}
+function showVal(x, unit) {
+  if (unit === "%") return fmt(x) + "%";
+  if (unit === "ratio") return fmt(x);
+  return fmt(x, unit) + " " + unitName(unit);
+}
+function verdict(v, lo, hi, strict) {
+  if (lo !== null && (strict && hi === null ? v <= lo : v < lo)) return "lo";
+  if (hi !== null && (strict && lo === null ? v >= hi : v > hi)) return "hi";
+  return "ok";
+}
+function vbar(lo, hi, v) {
+  if (lo === null && hi === null) return "";
+  var a = lo === null ? 0 : lo, b = hi === null ? Math.max(v, a) * 1.25 || 1 : hi;
+  var mn = Math.min(a, v), mx = Math.max(b, v), pad = (mx - mn) * 0.08 || 1;
+  mn = Math.max(0, mn - pad); mx += pad; var w = mx - mn;
+  var out = v < a || v > b;
+  return '<span class="bar" aria-hidden="true" style="--c:var(--muted)"><i style="left:' + ((a - mn) / w * 100).toFixed(1) + "%;width:" + Math.max((b - a) / w * 100, 1.5).toFixed(1) + '%"></i>'
+    + '<b class="pt' + (out ? " out" : "") + '" style="left:' + ((v - mn) / w * 100).toFixed(1) + '%"></b></span>';
+}
+var PILL = { lo: "Low", hi: "High", ok: "Within" };
+function renderReport() {
+  var R = REPORT, age = state.age, act = activeStudies().filter(function (s) { return DATA.studies[s].limit !== "iqr"; });
+  var outCount = 0, body = "";
+  R.rows.forEach(function (r) {
+    var p = r.pid ? paramById[r.pid] : null, u = p ? p.unit : null, abn = false;
+    var resTxt = p ? showVal(r.value, u) : esc(r.raw + (r.unitTxt ? " " + r.unitTxt : ""));
+    /* laboratory range */
+    var labCell;
+    if (r.ref) {
+      var lv = verdict(r.value, r.ref.lo, r.ref.hi, r.ref.strict);
+      if (lv !== "ok") abn = true;
+      var rt = p && u !== "%" && u !== "ratio" ? rangeText(r.ref.lo, r.ref.hi, u) + " " + esc(unitName(u)) : esc(r.ref.txt);
+      labCell = '<span class="rng">' + rt + '</span><span class="pill ' + lv + '">' + PILL[lv] + "</span>";
+    } else labCell = '<span class="na">' + (r.calc ? "Calculated: WBC × lymphocyte %" : "Not given in the report") + "</span>";
+    /* published ranges for this age */
+    var litCell;
+    if (!p) litCell = '<span class="na">No published values on this page for this marker</span>';
+    else if (age === null) litCell = '<span class="na">Enter the age above to compare</span>';
+    else {
+      var found = {}, n = 0, lo = 0, hi = 0, lines = "";
+      act.forEach(function (s) {
+        var se = (seriesByParam[p.id] || {})[s]; if (!se) return;
+        var row = rowAt(se, age); if (!row) return;
+        found[s] = { se: se, r: row }; n++;
+        var v = verdict(r.value, row.v[0], row.v[2], false);
+        if (v === "lo") lo++; else if (v === "hi") hi++;
+        lines += '<span class="srcl' + (v !== "ok" ? " out" : "") + '" style="--c:' + hue(s) + '"><i></i>' + esc(DATA.studies[s].short) + " " + rangeText(row.v[0], row.v[2], u)
+          + (v !== "ok" ? " <em>" + (v === "lo" ? "below" : "above") + "</em>" : "") + "</span>";
+      });
+      if (!n) litCell = '<span class="na">No selected source covers this age</span>';
+      else {
+        var sm = summarise(found), cls, word;
+        if (lo === n) { cls = "lo"; word = n > 1 ? "Low in all " + n : "Low"; }
+        else if (hi === n) { cls = "hi"; word = n > 1 ? "High in all " + n : "High"; }
+        else if (lo) { cls = "part"; word = "Low in " + lo + " of " + n; }
+        else if (hi) { cls = "part"; word = "High in " + hi + " of " + n; }
+        else { cls = "ok"; word = n > 1 ? "Within all " + n : "Within"; }
+        if (cls === "lo" || cls === "hi") abn = true;
+        litCell = '<span class="rng">' + rangeText(sm.lo, sm.hi, u) + (u !== "%" && u !== "ratio" ? " " + esc(unitName(u)) : "") + '</span><span class="pill ' + cls + '">' + word + "</span>"
+          + vbar(sm.lo, sm.hi, r.value) + lines;
+        if (r.ref && ((r.ref.lo !== null && sm.hi !== null && r.ref.lo > sm.hi) || (r.ref.hi !== null && sm.lo !== null && r.ref.hi < sm.lo)))
+          litCell += '<span class="flag">The lab\'s range does not overlap the published ranges for this age.</span>';
+      }
+    }
+    if (abn) outCount++;
+    body += "<tr" + (abn ? ' class="abn"' : "") + '><th scope="row"><span class="lab">' + esc(r.label) + "</span>"
+      + (p ? '<button type="button" class="mk" data-marker="' + p.id + '" title="Show all ages and what this marker is">' + esc(p.name) + "</button>" : "") + "</th>"
+      + '<td class="r" data-study="Result" data-lim=""><div><span class="res">' + resTxt + "</span></div></td>"
+      + '<td data-study="Lab reference" data-lim="from the report"><div>' + labCell + "</div></td>"
+      + '<td data-study="Published, for this age" data-lim="' + (age === null ? "" : esc(shortAge(age))) + '"><div>' + litCell + "</div></td></tr>";
+  });
+  var sub = !R.rows.length
+    ? "No results were recognised in the pasted text. Each result should be on its own line, as <em>name : value</em>."
+    : "<strong>" + R.rows.length + "</strong> results read"
+      + (age !== null ? " and compared at <strong>" + ageWords(age) + "</strong>" + (R.age !== null && Math.abs(R.age - age) < 0.5 ? " (age from the report)" : "") : ". Enter the patient's age above to compare with published values for that age")
+      + ". <strong>" + outCount + "</strong> outside the lab range or below or above every published source.";
+  var h = '<section class="cmpsec" aria-label="Report compared with reference values"><h2>Report compared with reference values</h2><p class="sub">' + sub + "</p>";
+  if (R.rows.length) h += '<div class="scroller"><table class="cmp"><thead><tr><th scope="col">Result in the report</th><th scope="col">Value</th>'
+    + '<th scope="col">Lab reference<span class="lim">as printed in the report</span></th><th scope="col">Published, for this age<span class="lim">lowest to highest limit, then each source</span></th></tr></thead><tbody>'
+    + body + "</tbody></table></div>"
+    + '<p class="cmpnote">Interquartile ranges are not used for these flags. "Low in 2 of 3" means the result is below the limit of two of the three sources shown. Select a marker\'s page name to see every age group.</p>';
+  return h + "</section>";
 }
 
 /* ---------- static controls ---------- */
@@ -641,11 +915,17 @@ function summarise(found) {
 function notesFor(age, tabs) {
   return NOTES.filter(function (n) { return (n.tab === "*" || tabs.indexOf(n.tab) >= 0) && age >= (n.from || 0) && (n.to === undefined || age < n.to); });
 }
+/* With a pasted report the comparison comes first; the full reference tables wait behind a button. */
+function withReport(main, inner) {
+  if (!REPORT) { main.innerHTML = inner; return; }
+  main.innerHTML = renderReport() + (state.age === null ? "" : '<div class="allref"><button type="button" class="showall" id="showAll" aria-expanded="' + state.showAll + '" aria-controls="allBody">'
+    + (state.showAll ? "Hide" : "Show") + ' all reference values for this age</button><div id="allBody"' + (state.showAll ? "" : " hidden") + ">" + inner + "</div></div>");
+}
 function render() {
   var main = $("main"), age = state.age;
   view = [];
   if (age === null) {
-    main.innerHTML = '<div class="empty"><h2>Enter the patient\'s age to see the reference values</h2><p>Type years, months or days above, or pick a point on the age scale. Every source that covers that age appears side by side.</p></div>';
+    withReport(main, '<div class="empty"><h2>Enter the patient\'s age to see the reference values</h2><p>Type years, months or days above, pick a point on the age scale, or paste a report that states the age. Every source that covers that age appears side by side.</p></div>');
     return;
   }
   var act = activeStudies(), q = state.q.trim().toLowerCase(), html = "", shown = 0, everything = q || state.tab === "all";
@@ -693,7 +973,7 @@ function render() {
     var why = !act.length ? "Every source is switched off. Open Limits and sources and switch some back on."
       : q ? "No marker matches that search at this age. Try a shorter term such as CD19."
       : "None of the selected sources covers this age in this section. Try another section, or switch more sources on.";
-    main.innerHTML = status + '<div class="empty"><h2>Nothing to show here</h2><p>' + why + "</p></div>";
+    withReport(main, status + '<div class="empty"><h2>Nothing to show here</h2><p>' + why + "</p></div>");
     return;
   }
   var notes = notesFor(age, Object.keys(tabsShown));
@@ -707,7 +987,7 @@ function render() {
     });
     if (miss.length) html += '<p class="missing">No values at this age from ' + esc(miss.join(", ")) + ".</p>";
   }
-  main.innerHTML = status + alerts + html;
+  withReport(main, status + alerts + html);
 }
 
 /* ---------- marker dialog: every age group from every source ---------- */
@@ -735,18 +1015,42 @@ function openMarker(pid) {
 function update() {
   state.age = readAge();
   $("agePill").textContent = state.age === null ? "Set age" : shortAge(state.age);
-  placeMarker(); syncChips(); render();
+  placeMarker(); syncChips(); render(); reportStatus();
   try { history.replaceState(null, "", state.age === null ? location.pathname + location.search : "#age=" + Math.round(state.age) + "d"); } catch (e) {}
+}
+function reportStatus() {
+  var el = $("pstat");
+  $("rclear").hidden = !REPORT;
+  if (!REPORT) { el.innerHTML = ""; return; }
+  var n = REPORT.rows.length;
+  el.innerHTML = !n ? '<span class="warnx">No results recognised.</span>'
+    : "<strong>" + n + "</strong> results read. " + (REPORT.age !== null
+      ? "Age in the report: <strong>" + esc(ageWords(REPORT.age)) + "</strong>" + (state.age !== null && Math.abs(state.age - REPORT.age) >= 0.5 ? ' <span class="warnx">(differs from the age entered above)</span>' : "") + "."
+      : '<span class="warnx">No age found in the report; enter it above.</span>');
+}
+var reportTimer = null;
+function onReport() {
+  var t = $("report").value;
+  if (!t.trim()) { REPORT = null; reportAgeApplied = null; state.showAll = false; render(); reportStatus(); return; }
+  var wasNull = !REPORT;
+  REPORT = parseReport(t);
+  if (wasNull) state.showAll = false;
+  var a = REPORT.age;
+  if (a !== null && a !== reportAgeApplied) { reportAgeApplied = a; setAge(a); }
+  else { render(); reportStatus(); }
 }
 
 /* ---------- events ---------- */
 build();
 ["ay", "am", "ad"].forEach(function (id) { $(id).addEventListener("input", update); });
 $("clear").addEventListener("click", function () { $("ay").value = $("am").value = $("ad").value = ""; update(); $("ay").focus(); });
+$("report").addEventListener("input", function () { clearTimeout(reportTimer); reportTimer = setTimeout(onReport, 180); });
+$("rclear").addEventListener("click", function () { $("report").value = ""; onReport(); $("report").focus(); });
 $("ticks").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setAge(TICKS[+b.getAttribute("data-i")][1]); });
 $("tabs").addEventListener("click", function (e) {
   var b = e.target.closest(".tab"); if (!b) return;
   state.tab = b.getAttribute("data-tab"); state.q = ""; $("q").value = "";
+  if (REPORT) state.showAll = true;
   each(".tab", function (t) { t.setAttribute("aria-selected", t === b); });
   render();
   if (mq.matches) {
@@ -757,6 +1061,7 @@ $("tabs").addEventListener("click", function (e) {
 });
 $("q").addEventListener("input", function () {
   state.q = this.value;
+  if (REPORT && state.q.trim()) state.showAll = true;
   each(".tab", function (t) { t.setAttribute("aria-selected", !state.q.trim() && t.getAttribute("data-tab") === state.tab); });
   render();
 });
@@ -781,6 +1086,13 @@ $("details").addEventListener("change", function () { state.details = this.check
 $("reset").addEventListener("click", function () { Object.keys(state.limits).forEach(function (k) { state.limits[k] = true; }); studyIds.forEach(function (s) { state.sources[s] = true; }); syncChips(); render(); });
 $("print").addEventListener("click", function () { window.print(); });
 $("main").addEventListener("click", function (e) {
+  var sa = e.target.closest("#showAll");
+  if (sa) {
+    state.showAll = !state.showAll;
+    sa.setAttribute("aria-expanded", state.showAll); sa.textContent = (state.showAll ? "Hide" : "Show") + " all reference values for this age";
+    $("allBody").hidden = !state.showAll;
+    return;
+  }
   var b = e.target.closest("[data-marker]");
   if (!b && mq.matches) { var th = e.target.closest("tbody th"); b = th && th.querySelector("[data-marker]"); }
   if (b) openMarker(b.getAttribute("data-marker"));
